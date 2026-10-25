@@ -46,7 +46,15 @@ try {
  await link.click({timeout:10000});await page.waitForTimeout(3000);
  if(page.url()===base)throw Error('Não navegou para detalhes');
  await snap('shop','Página real acessada a partir dos resultados');
- await snap('checkout','Página real de detalhes, sem simular carrinho ou pagamento');
+ const cart=page.getByRole('button',{name:/adicionar.*carrinho|comprar/i}).first();
+ const cartLink=page.getByRole('link',{name:/adicionar.*carrinho|comprar/i}).first();
+ if(await cart.count())await cart.click({timeout:10000});
+ else if(await cartLink.count())await cartLink.click({timeout:10000});
+ else throw Error('Carrinho não acessível sem interação adicional: captura de checkout não realizada');
+ await page.waitForTimeout(2500);
+ const cartText=await page.locator('body').innerText();
+ if(!/carrinho|finalizar pedido|meu pedido/i.test(cartText))throw Error('Carrinho não confirmado na página');
+ await snap('checkout','Carrinho real, sem concluir compra ou fornecer dados pessoais');
 } catch(error) {
  manifest.warnings.push(String(error));
  console.error('Capture incomplete:',error);
