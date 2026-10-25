@@ -24,6 +24,15 @@ jobs:
           npx remotion browser ensure
       - name: Generate narration and word timing
         run: python scripts/voice.py
+      - name: Validate authentic screenshots
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          names=['intro','site','search','prices','shop','checkout','end']
+          missing=[n for n in names if not Path('public/captures',n+'.png').is_file()]
+          if missing:
+              raise SystemExit('Missing authentic screenshots: '+', '.join(missing)+'. Upload screenshots to public/captures before rendering.')
+          PY
       - name: Render vertical MP4
         run: npm run render
       - name: Upload video
