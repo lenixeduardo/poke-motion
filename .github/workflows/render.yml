@@ -6,7 +6,7 @@ permissions:
 jobs:
   render:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -15,24 +15,38 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install system tools
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: Install dependencies
         run: |
           npm install --no-audit --no-fund
+          npm install --no-save playwright
           python -m pip install edge-tts
+          npx playwright install --with-deps chromium
           npx remotion browser ensure
-      - name: Generate narration and word timing
-        run: python scripts/voice.py
-      - name: Validate authentic screenshots
+      - name: Capture authentic Liga Pokemon pages
+        run: node scripts/capture.mjs
+      - name: Upload capture evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: capturas-liga-pokemon
+          path: public/captures/
+          if-no-files-found: warn
+          retention-days: 7
+      - name: Validate captures
         run: |
           python - <<'PY'
           from pathlib import Path
+          import json
           names=['intro','site','search','prices','shop','checkout','end']
-          missing=[n for n in names if not Path('public/captures',n+'.png').is_file()]
-          if missing:
-              raise SystemExit('Missing authentic screenshots: '+', '.join(missing)+'. Upload screenshots to public/captures before rendering.')
+          folder=Path('public/captures')
+          missing=[n for n in names if not (folder/(n+'.png')).is_file()]
+          assert not missing, 'Missing authentic screenshots: '+', '.join(missing)
+          data=json.loads((folder/'manifest.json').read_text())
+          assert len(data['captures'])==7, 'Expected 7 recorded captures'
+          assert all(c['url'].startswith('https://www.ligapokemon.com.br/') for c in data['captures'])
           PY
+      - name: Generate narration and word timing
+        run: python scripts/voice.py
       - name: Render vertical MP4
         run: npm run render
       - name: Upload video
