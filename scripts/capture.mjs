@@ -8,7 +8,16 @@ const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:2,locale:'pt-BR',isMobile:true,hasTouch:true});
 const base='https://www.ligapokemon.com.br/';
 const manifest={createdAt:new Date().toISOString(),captures:[],warnings:[]};
+async function assertSiteAccessible(){
+ const title=await page.title();
+ const body=(await page.locator('body').innerText()).slice(0,4000);
+ if(/access denied|cloudflare|error 1005|autonomous system number|asn your ip/i.test(title+' '+body)){
+   await page.screenshot({path:path.join(out,'blocked-cloudflare.png'),fullPage:true});
+   throw Error('CLOUDFLARE_ASN_BLOCK: site bloqueia o IP/ASN do GitHub Actions; captura automatizada indisponível nesta infraestrutura');
+ }
+}
 async function snap(id,reason){
+  await assertSiteAccessible();
   const url=page.url();
   if(!url.startsWith('https://www.ligapokemon.com.br/'))throw Error('Unexpected domain: '+url);
   await page.locator('body').waitFor({state:'visible',timeout:20000});
@@ -19,6 +28,7 @@ async function snap(id,reason){
 async function go(url){await page.goto(url,{waitUntil:'domcontentloaded',timeout:45000});await page.waitForTimeout(2500);}
 try {
  await go(base);
+ await assertSiteAccessible();
  await snap('site','Homepage real');
  await snap('intro','Homepage real usada na introdução');
  async function diagnostic(label) {
