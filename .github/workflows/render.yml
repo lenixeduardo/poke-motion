@@ -1,0 +1,37 @@
+name: Render Poke Motion
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install system tools
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Install dependencies
+        run: |
+          npm ci
+          python -m pip install edge-tts
+          npx remotion browser ensure
+      - name: Generate narration and word timing
+        run: python scripts/voice.py
+      - name: Render vertical MP4
+        run: npm run render
+      - name: Upload video
+        uses: actions/upload-artifact@v4
+        with:
+          name: poke-achadinhos-mp4
+          path: out/poke-achadinhos.mp4
+          if-no-files-found: error
+          retention-days: 7
