@@ -1,0 +1,37 @@
+[
+  {
+    "id": "intro",
+    "title": "A carta que falta",
+    "text": "Tá querendo comprar aquela cartinha Pokémon que falta na sua coleção? Vou te ensinar como procurar!"
+  },
+  {
+    "id": "site",
+    "title": "Entre na Liga Pokémon",
+    "text": "Primeiro, entre no site Liga Pokémon, pelo navegador do celular."
+  },
+  {
+    "id": "search",
+    "title": "Pesquise sua carta",
+    "text": "Pesquise Charmander. Confira a coleção e o número, porque existem várias versões diferentes."
+  },
+  {
+    "id": "prices",
+    "title": "Compare os anúncios",
+    "text": "Compare os preços e a conservação. Uma carta em ótimo estado pode custar mais."
+  },
+  {
+    "id": "shop",
+    "title": "Confira a loja",
+    "text": "Verifique a reputação da loja e o valor do frete antes de decidir."
+  },
+  {
+    "id": "checkout",
+    "title": "Revise o pedido",
+    "text": "Adicione ao carrinho, confira o endereço, o frete e o pagamento. Revise tudo antes de finalizar."
+  },
+  {
+    "id": "end",
+    "title": "Complete a coleção",
+    "text": "Agora é só esperar a carta chegar! Siga o Poke Achadinhos do Edu para mais dicas."
+  }
+]
