@@ -1,0 +1,65 @@
+[
+  {
+    "id": "intro",
+    "title": "A carta que falta",
+    "text": "Tá querendo comprar aquela cartinha Pokémon que falta na sua coleção? Vou te ensinar como procurar!",
+    "frames": 360,
+    "durationSeconds": 12,
+    "audio": "audio/intro.mp3",
+    "words": []
+  },
+  {
+    "id": "site",
+    "title": "Entre na Liga Pokémon",
+    "text": "Primeiro, entre no site Liga Pokémon, pelo navegador do celular.",
+    "frames": 360,
+    "durationSeconds": 12,
+    "audio": "audio/site.mp3",
+    "words": []
+  },
+  {
+    "id": "search",
+    "title": "Pesquise sua carta",
+    "text": "Pesquise Charmander. Confira a coleção e o número, porque existem várias versões diferentes.",
+    "frames": 360,
+    "durationSeconds": 12,
+    "audio": "audio/search.mp3",
+    "words": []
+  },
+  {
+    "id": "prices",
+    "title": "Compare os anúncios",
+    "text": "Compare os preços e a conservação. Uma carta em ótimo estado pode custar mais.",
+    "frames": 360,
+    "durationSeconds": 12,
+    "audio": "audio/prices.mp3",
+    "words": []
+  },
+  {
+    "id": "shop",
+    "title": "Confira a loja",
+    "text": "Verifique a reputação da loja e o valor do frete antes de decidir.",
+    "frames": 360,
+    "durationSeconds": 12,
+    "audio": "audio/shop.mp3",
+    "words": []
+  },
+  {
+    "id": "checkout",
+    "title": "Revise o pedido",
+    "text": "Adicione ao carrinho, confira o endereço, o frete e o pagamento. Revise tudo antes de finalizar.",
+    "frames": 360,
+    "durationSeconds": 12,
+    "audio": "audio/checkout.mp3",
+    "words": []
+  },
+  {
+    "id": "end",
+    "title": "Complete a coleção",
+    "text": "Agora é só esperar a carta chegar! Siga o Poke Achadinhos do Edu para mais dicas.",
+    "frames": 360,
+    "durationSeconds": 12,
+    "audio": "audio/end.mp3",
+    "words": []
+  }
+]
