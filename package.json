@@ -1,0 +1,19 @@
+{
+  "name": "poke-motion",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts Tutorial out/poke-achadinhos.mp4 --codec h264 --crf 20"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.350",
+    "remotion": "4.0.350",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "@types/react": "^19.1.0"
+  }
+}
