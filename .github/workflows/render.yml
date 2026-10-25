@@ -12,8 +12,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: npm
-          cache-dependency-path: package-lock.json
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -21,7 +19,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: Install dependencies
         run: |
-          npm ci
+          npm install --no-audit --no-fund
           python -m pip install edge-tts
           npx remotion browser ensure
       - name: Generate narration and word timing
